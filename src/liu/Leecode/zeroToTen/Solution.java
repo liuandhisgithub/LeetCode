@@ -1,6 +1,9 @@
 package liu.Leecode.zeroToTen;
 
+import javax.xml.soap.Node;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 public class Solution {
 
@@ -32,6 +35,57 @@ public class Solution {
             }
         }
         return null;
-
     }
+
+    /**
+     * 2020/8/1
+     * 2.两数之和
+     */
+   public class ListNode {
+       int val;
+       ListNode next;
+       ListNode(int x) { val = x; }
+   }
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode resoult = l1;
+        while(l2!=null){
+            if(l1!=null){
+                l1.val = l1.val+l2.val;
+            }
+            if(l1.next == null&&l2.next!=null){
+                l1.next = new ListNode(0);
+            }
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        ListNode node = resoult;
+        int upper = 0;
+        while(node!=null || upper!=0){
+
+            node.val = node.val+upper;
+            upper = 0;
+            if (node.val>=10) {
+                node.val -= 10;
+                upper = 1;
+            }
+            if(node.next==null && upper == 1){
+                ListNode nodeNext= new ListNode(0);
+                node.next = nodeNext;
+            }
+            node = node.next;
+        }
+        return resoult;
+    }
+
+    /**
+     * 3.无重复最长字串
+     * 使用hashmap来进行查找，空间换时间
+     */
+    public int lengthOfLongestSubstring(String s) {
+        Map<String,Integer> stringMap = new HashMap<>();
+        return 0;
+    }
+
 }
+
+
