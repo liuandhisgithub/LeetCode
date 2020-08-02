@@ -1,10 +1,10 @@
 package liu.Leecode.zeroToTen;
 
-import javax.xml.soap.Node;
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+
 public class Solution {
 
     /**
@@ -83,7 +83,21 @@ public class Solution {
      */
     public int lengthOfLongestSubstring(String s) {
         Map<String,Integer> stringMap = new HashMap<>();
-        return 0;
+        int end=0;
+        int re = 0 ;
+        for(int index = 0; index < s.length(); index++){
+            String temp = String.valueOf(s.charAt(index));
+            if(stringMap.get(temp)!=null){
+                int tindex = stringMap.get(temp);
+                if(tindex >= end){
+                    re  = re>index-end?re:index-end;
+                    end = tindex+1;
+                }
+            }
+            re  = re>index-end?re:index-end+1;
+            stringMap.put(temp,index);
+        }
+        return re;
     }
 
 }

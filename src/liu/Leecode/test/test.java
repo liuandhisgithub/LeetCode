@@ -4,6 +4,7 @@ import liu.Leecode.zeroToTen.Solution;
 
 public class test {
     public static void main(String[] args){
-
+        Solution solution = new Solution();
+        System.out.println(solution.lengthOfLongestSubstring("abca"));
     }
 }
