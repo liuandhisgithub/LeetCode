@@ -153,7 +153,7 @@ public class Solution {
                 if(k>s.length()) break;
                 if(j==0) dp[i][k] = true;
                 else if(j==1) dp[i][k] = s.charAt(i) == s.charAt(k);
-                else dp[i][k] = (dp[i+1][k-1]&&(s.charAt(i)==s.charAt(k));
+                else dp[i][k] = (dp[i+1][k-1]&&(s.charAt(i)==s.charAt(k)));
             }
         }
         int maxLength = 1;
