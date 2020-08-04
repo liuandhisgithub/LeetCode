@@ -1,6 +1,8 @@
 package liu.Leecode.zeroToTen;
 
 
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -140,38 +142,52 @@ public class Solution {
      * 5.最长回文子串
      */
     public String longestPalindrome(String s) {
+        if (s.length()==0) return "";
         Boolean[][] dp = new Boolean[s.length()][s.length()];
-        for(int i = 0 ;i<s.length();i++){
-            for(int j = 0;j<s.length();j++){
-                dp[i][j] = false;
-            }
-        }
-
+        int maxTop = 0;
+        int maxEnd = 1;
         for(int i=0;i<s.length();i++){
             for(int j=0;j<s.length();j++){
                 int k = i+j;
-                if(k>s.length()) break;
-                if(j==0) dp[i][k] = true;
-                else if(j==1) dp[i][k] = s.charAt(i) == s.charAt(k);
-                else dp[i][k] = (dp[i+1][k-1]&&(s.charAt(i)==s.charAt(k)));
-            }
-        }
-        int maxLength = 1;
-        int maxTop = 0;
-        int maxEnd = 0;
-        for(int i=0;i<s.length();i++){
-            for(int j = i+1;j<s.length();j++){
-                if(dp[i][j]){
-                    if(j-i > maxLength){
-                        maxLength = j-i;
-                        maxTop = i;
-                        maxEnd = j;
-                    }
+                if(k>=s.length()) break;
+                if(i==0) dp[j][k] = true;
+                else if(i==1) dp[j][k] = s.charAt(j) == s.charAt(k);
+                else dp[j][k] = (dp[j+1][k-1]&&(s.charAt(j)==s.charAt(k)));
+                if(dp[j][k]){
+                    maxTop = j;
+                    maxEnd = k+1;
                 }
             }
         }
         return s.substring(maxTop,maxEnd);
+    }
 
+    /**
+     * 6.Z 字形变换
+     *
+     */
+
+    public String convert(String s, int numRows) {
+        if(numRows == 1) return s;
+        List<StringBuilder> z = new ArrayList<StringBuilder>();
+        Boolean up = false;
+        int row = s.length()<numRows?s.length():numRows;
+        for(int i =0;i<row;i++){
+            z.add(new StringBuilder());
+        }
+        int nowRow = 0;
+        for(char c:s.toCharArray()){
+            z.get(nowRow).append(c);
+            if(nowRow == 0 || nowRow == numRows-1){
+                up = !up;
+            }
+            nowRow += up?1:-1;
+        }
+        StringBuilder re=new StringBuilder();
+        for(StringBuilder sb : z){
+            re.append(sb);
+        }
+        return re.toString();
     }
 }
 
