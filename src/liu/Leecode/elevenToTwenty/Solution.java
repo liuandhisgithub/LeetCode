@@ -1,8 +1,7 @@
 package liu.Leecode.elevenToTwenty;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Solution {
     /**
@@ -95,5 +94,58 @@ public class Solution {
             re+=temp[i];
         }
         return re;
+    }
+    /**
+     * 15.三数之和
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> re = new ArrayList<List<Integer>>();
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int i = 0;i<nums.length;i++){
+            map.put(nums[i],i);
+        }
+        for(int i = 0; i<nums.length;i++){
+            if(i!=0&&nums[i]==nums[i-1]) continue;
+            for(int j=i+1;j<nums.length;j++){
+                if(j!=i+1&&nums[j] == nums[j-1]) continue;
+                int k = 0-nums[i]-nums[j];
+                int index;
+                if(map.get(k)!=null) index = map.get(k);
+                else  index = -1;
+                if(index!=-1&&index>i&&index>j){
+                    List<Integer> list = new ArrayList<>();
+                    list.add(nums[i]);
+                    list.add(nums[j]);
+                    list.add(nums[index]);
+                    re.add(list);
+                }
+            }
+        }
+        return  re;
+    }
+
+    /**
+     * 16. 最接近的三数之和
+     */
+    public int threeSumClosest(int[] nums, int target) {
+        int min = 0x3f3f3f3f;
+        int re = target;
+        Arrays.sort(nums);
+        for (int i = 0;i<nums.length;i++){
+            int top = i+1;
+            int end = nums.length - 1;
+            while(top<end){
+                if(min>Math.abs(nums[i]+nums[top]+nums[end] - target)){
+                    re = nums[i]+nums[top]+nums[end];
+                    min = Math.abs(nums[i]+nums[top]+nums[end] - target);
+                }
+                if(nums[i]+nums[top]+nums[end] > target){
+                    end--;
+                }
+                else top++;
+            }
+        }
+        return  re;
     }
 }
