@@ -156,5 +156,17 @@ public class Solution {
         return slow+1;
     }
 
+    /**
+     * 27. 移除元素
+     */
+    public int removeElement(int[] nums, int val) {
+        int slow = 0;
+        int fast = 0;
+        while(fast<nums.length){
+            if(nums[fast] == val) fast++;
+            else nums[slow++] = nums[fast++];
+        }
+        return slow+1;
+    }
 
 }

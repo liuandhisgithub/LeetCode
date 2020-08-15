@@ -9,7 +9,7 @@ import java.util.List;
 public class test {
     public static void main(String[] args){
         Solution solution = new Solution();
-        System.out.println(solution.removeDuplicatesByDoublePointer(new int[]{1,1,2,2,3,3}));
+        System.out.println(solution.removeElement(new int[]{3,2,2,3},3));
     }
 }
 
