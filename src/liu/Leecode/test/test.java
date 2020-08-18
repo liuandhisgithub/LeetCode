@@ -1,15 +1,14 @@
 package liu.Leecode.test;
 
-import liu.Leecode.entity.ListNode;
-import liu.Leecode.twentyOneToThirty.Solution;
 
-import java.util.List;
-
+import liu.Leecode.thirtyOneToFourTy.Solution;
 
 public class test {
     public static void main(String[] args){
         Solution solution = new Solution();
-        System.out.println(solution.strStr("hello","ll"));
+        int[] nums = new int[]{1,2,3};
+        solution.nextPermutation(nums);
+        System.out.println(nums[0]);
     }
 }
 
