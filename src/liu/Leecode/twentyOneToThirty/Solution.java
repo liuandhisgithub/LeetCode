@@ -160,13 +160,85 @@ public class Solution {
      * 27. 移除元素
      */
     public int removeElement(int[] nums, int val) {
+        if(nums.length == 0) return 0;
         int slow = 0;
-        int fast = 0;
-        while(fast<nums.length){
-            if(nums[fast] == val) fast++;
-            else nums[slow++] = nums[fast++];
+        int fast = 1;
+        boolean jud = false;
+        while(nums[slow] == val&&fast<nums.length){
+            nums[slow] = nums[fast];
+            fast++;
         }
-        return slow+1;
+        if(fast == nums.length&&nums[slow] == val) return 0;
+        else if(fast == nums.length&&nums[slow] != val) return 1;
+        slow++;
+        while(fast<nums.length&&slow<nums.length){
+            if(nums[fast] == val || jud) {
+                fast++;
+                jud = false;
+            }
+            else {
+                nums[slow++] = nums[fast];
+                jud = true;
+            }
+        }
+        return slow;
     }
 
+    /**
+     * 27 更优美的双指针
+     * @param nums
+     * @param val
+     * @return
+     */
+    public int removeElementBetter(int[] nums, int val) {
+        int slow = 0;
+        for(int fast = 0; fast<nums.length; fast++) {
+            if(nums[fast] == val) continue;
+            else nums[slow] = nums[fast];
+            slow++;
+        }
+        return slow;
+    }
+
+    /**
+     * 28. 实现 strStr()
+     * @param haystack
+     * @param needle
+     * @return
+     */
+    public int strStr(String haystack, String needle) {
+        int size = needle.length();
+        if(size == 0 ) return 0;
+        for(int i = 0; i<=haystack.length() - size; i++){
+            if(haystack.substring(i,i+size).equals(needle)) return i;
+        }
+        return -1;
+    }
+
+    /**
+     * 29.两数相除
+     * 耗时太长，之后尝试用位运算优化，不清楚Java的位运算符是不是>> <<
+     * @param dividend
+     * @param divisor
+     * @return
+     */
+    public int divide(int dividend, int divisor) {
+        if(divisor == 1) {
+            return dividend;
+        }
+        if(divisor == -1){
+            if(dividend == -2147483648) return 2147483647;
+            else return -dividend;
+        }
+        int re = 0;
+        boolean isPositive = dividend>0;
+        isPositive = divisor>0?isPositive:!isPositive;
+        if(dividend > 0) dividend = -dividend;
+        if(divisor > 0) divisor = -divisor;
+        while(dividend<=divisor){
+            dividend -= divisor;
+            re++;
+        }
+        return isPositive?re:-re;
+    }
 }
